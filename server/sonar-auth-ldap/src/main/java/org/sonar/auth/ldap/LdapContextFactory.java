@@ -57,6 +57,7 @@ public class LdapContextFactory {
 
   private static final String DEFAULT_AUTHENTICATION = AUTH_METHOD_SIMPLE;
   private static final String DEFAULT_FACTORY = "com.sun.jndi.ldap.LdapCtxFactory";
+  private static final String LDAP_SOCKET_FACTORY = "java.naming.ldap.factory.socket";
 
   /**
    * The Sun LDAP property used to enable connection pooling. This is used in the default implementation to enable
@@ -180,6 +181,7 @@ public class LdapContextFactory {
     if (principal != null) {
       env.put(Context.SECURITY_PRINCIPAL, principal);
     }
+    env.put(LDAP_SOCKET_FACTORY, CustomSSLSocketFactory.class.getName());
     // Note: debug is intentionally was placed here - in order to not expose password in log
     LOG.debug("Initializing LDAP context {}", env);
     if (credentials != null) {
